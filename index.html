@@ -5,30 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>渡邊悠のポートフォリオ</title>
   <style>
-    /* 全体の設定：横スクロールを有効にする */
     body {
       margin: 0;
       font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       color: #333;
-      overflow-y: hidden; /* 縦スクロールを禁止 */
+      overflow-y: hidden;
     }
 
-    /* 横に並べるためのコンテナ */
     .scroll-container {
       display: flex;
-      width: 200vw; /* 画面2枚分の横幅 */
+      width: 200vw;
       height: 100vh;
-      scroll-snap-type: x mandatory; /* スナップ機能でピタッと止まる */
+      scroll-snap-type: x mandatory;
       overflow-x: scroll;
-      scrollbar-width: none; /* Firefoxでスクロールバーを隠す */
+      scrollbar-width: none;
     }
 
     .scroll-container::-webkit-scrollbar {
-      display: none; /* Chrome, Safariでスクロールバーを隠す */
+      display: none;
     }
 
-    /* 各セクション（ページ）の共通スタイル */
     section {
       width: 100vw;
       height: 100vh;
@@ -39,7 +36,6 @@
       flex-shrink: 0;
     }
 
-    /* カードのデザイン */
     .profile-card {
       background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(10px);
@@ -56,7 +52,6 @@
     .school-info { font-weight: bold; color: #007aff; }
     .divider { width: 40px; height: 2px; background: #007aff; margin: 20px auto; }
 
-    /* 2枚目専用のスタイル */
     .message {
       font-size: 1.2rem;
       font-weight: bold;
@@ -64,7 +59,6 @@
       line-height: 2;
     }
 
-    /* 右矢印のヒント（1枚目のみ） */
     .scroll-hint {
       position: absolute;
       bottom: 30px;
@@ -102,7 +96,6 @@
           大学では、自分にとって初めての分野ばかりで大変ですが充実しています！！
         </p>
         <div class="divider"></div>
-        <p style="font-size: 0.8rem; color: #95a5a6;">← 左へ戻る</p>
       </div>
     </section>
   </div>
