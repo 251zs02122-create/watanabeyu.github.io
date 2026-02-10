@@ -22,9 +22,7 @@
       scrollbar-width: none;
     }
 
-    .scroll-container::-webkit-scrollbar {
-      display: none;
-    }
+    .scroll-container::-webkit-scrollbar { display: none; }
 
     section {
       width: 100vw;
@@ -36,6 +34,7 @@
       flex-shrink: 0;
     }
 
+    /* JavaScriptで操作するカードの初期状態（少し下にずらして透明に） */
     .profile-card {
       background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(10px);
@@ -45,6 +44,15 @@
       text-align: center;
       max-width: 400px;
       width: 80%;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    /* 表示された時のクラス */
+    .profile-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     h1 { font-size: 1.8rem; color: #2c3e50; margin-bottom: 20px; }
@@ -57,6 +65,7 @@
       font-weight: bold;
       color: #2c3e50;
       line-height: 2;
+      min-height: 4.8rem; /* ガタつき防止 */
     }
 
     .scroll-hint {
@@ -77,9 +86,9 @@
 </head>
 <body>
 
-  <div class="scroll-container">
+  <div class="scroll-container" id="scrollContainer">
     <section>
-      <div class="profile-card">
+      <div class="profile-card" id="card1">
         <h1>渡邊 悠</h1>
         <div class="divider"></div>
         <p class="intro-text">
@@ -91,14 +100,52 @@
     </section>
 
     <section>
-      <div class="profile-card">
-        <p class="message">
-          大学では、自分にとって初めての分野ばかりで大変ですが充実しています！！
-        </p>
+      <div class="profile-card" id="card2">
+        <p class="message" id="typewriter"></p>
         <div class="divider"></div>
       </div>
     </section>
   </div>
 
+  <script>
+    // 1. フェードインのアニメーション制御
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          
+          // 2枚目のカードが目に入ったらタイピング演出を開始
+          if (entry.target.id === 'card2') {
+            startTypewriter();
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.profile-card').forEach(card => {
+      observer.observe(card);
+    });
+
+    // 2. タイピング演出の関数
+    const text = "大学では、自分にとって初めての分野ばかりで大変ですが充実しています！！";
+    const typewriterElement = document.getElementById('typewriter');
+    let index = 0;
+    let isTyping = false;
+
+    function startTypewriter() {
+      if (isTyping) return; // 二重起動防止
+      isTyping = true;
+      typewriterElement.textContent = ""; // リセット
+      
+      function type() {
+        if (index < text.length) {
+          typewriterElement.textContent += text.charAt(index);
+          index++;
+          setTimeout(type, 100); // 100msごとに次の文字を表示
+        }
+      }
+      type();
+    }
+  </script>
 </body>
 </html>
